@@ -1,0 +1,3 @@
+#export ENVSYNC_DEBUG=1
+export ENVSYNC_ENV="mbp"
+. ~/Projects/envsync/envsync.sh ~/Projects/envsync/src1

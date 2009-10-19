@@ -1,0 +1,10 @@
+<<<<<<< HEAD:src/dotfiles/vim/backup/.profile~
+#source ~/.bashrc
+
+#export PS1='#\[\e[0;32m\]\u\[\e[m\] \[\e[1;34m\]\w\[\e[m\] \[\e[1;32m\]\$\[\e[m\]\[\e[1;37m\] '
+source ~/envsync/envsync.sh
+=======
+#export ENVSYNC_DEBUG=1
+export ENVSYNC_ENV="mbp"
+. ~/Projects/envsync/envsync.sh
+>>>>>>> 2b2239909e7a1b79dfd81ee27926c8ada7ff595d:src/dotfiles/vim/backup/.profile~

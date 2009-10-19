@@ -1,0 +1,35 @@
+#!/bin/bash
+
+export PROJECTS_DIR="$HOME/Sites"
+export PYTHON_DIR="/usr/local/lib/python2.6/site-packages/"
+
+# Setup path
+unshift_path "/opt/local/bin"
+unshift_path "/opt/local/sbin"
+unshift_path "/usr/local/lib/erlang/lib/rabbitmq_server-1.5.5/sbin"
+
+# Setup python path
+unshift_pythonpath "$HOME/Sites/"
+unshift_pythonpath "$HOME/Sites/common/"
+unshift_pythonpath $PYTHON_DIR
+
+# Setup erlang
+export ERLANG_BIN_DIR=/opt/local/bin/
+export ERLANG_INCLUDE_DIR=/opt/local/lib/erlang/usr/include/
+
+# MacVim
+function gvim { /Applications/MacVim.app/Contents/MacOS/Vim -g $*; }
+
+alias gv='gvim'
+alias sgv='sudo  /Applications/MacVim.app/Contents/MacOS/Vim -g'
+alias ls='ls -G'
+alias l='ls -laG'
+alias rsl='sudo killall lighttpd; sudo /usr/local/sbin/lighttpd -f /etc/lighttpd.conf'
+alias rsf='$PROJECTS_DIR/restart_fastcgi.sh $ACTIVE_PROJECT'
+alias rsc='/Users/bradjasper/Sites/$ACTIVE_PROJECT/celeryd restart'
+alias rsm='killall memcached;memcached&'
+alias rsa='rsl && rsf && rsm'
+
+# Setup Django Path
+DJANGO_FILE=`python -c "import django; print django.__file__"`
+export DJANGO_DIR=`dirname $DJANGO_FILE`

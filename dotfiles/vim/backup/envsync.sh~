@@ -1,0 +1,86 @@
+#!/bin/bash
+#
+# Envsync
+#
+# Base initialization script that sets everything up
+#
+
+BASE_DIR=`dirname $BASH_SOURCE`
+SYSTEMS_DIR=$BASE_DIR/sys
+
+##
+## Install systems scripts
+##
+for file in $SYSTEMS_DIR/*; do
+    source $file
+done
+
+
+##
+## Uninstall
+##
+## Remove all symlinks, while being careful that we only touch ones we've
+## created.
+##
+## Motto: Would rather leave an extra symlink lying around (or explicitly ask)
+##        than remove a file we weren't supposed to
+##
+if [ "$1" == "uninstall" ]; then
+
+    debug "Uninstalling Envsync..."
+
+    for file in $DOTFILES_DIR/*; do
+        uninstall_dotfile $file
+    done
+
+    echo "Successfully uninstalled Envsync"
+
+##
+## Install
+##
+## Setup the users source files
+##
+else 
+
+    if [ ! -d "$1" ]; then
+        echo "ERROR: Please enter a valid directory for envsync to initialize"
+        exit 1;
+    fi
+
+    SRC_DIR=$1
+    SCRIPTS_DIR=$SRC_DIR/scripts
+    DOTFILES_DIR=$SRC_DIR/dotfiles
+
+    debug "Envsync is loading..."
+
+    ##
+    ## Install Bash Scripts
+    ##
+    ## Look for scripts in the following places
+    ## 1. Global $SCRIPTS_DIR/*
+    ## 2. OS specific in $SCRIPTS_DIR/$ENVSYNC_OS/*
+    ## 3. Environment specific in $SCRIPTS_DIR/$ENVSYNC_ENV/*   
+    ##
+
+    install_scripts $SCRIPTS_DIR/*
+
+    if [ -d "$SCRIPTS_DIR/$ENVSYNC_OS" ]; then
+        install_scripts $SCRIPTS_DIR/$ENVSYNC_OS/*
+    fi
+    
+    # Install environment scripts
+    if [ -n "${ENVSYNC_ENV+x}" ]; then
+        if [ -d "$SCRIPTS_DIR/$ENVSYNC_ENV" ]; then
+        install_scripts $SCRIPTS_DIR/$ENVSYNC_ENV/*
+        fi
+    fi
+
+    ##
+    ## Install Dotfiles
+    ##
+    for file in $DOTFILES_DIR/*; do
+        if [ -e $file ]; then
+            install_dotfile $file
+        fi
+    done
+fi

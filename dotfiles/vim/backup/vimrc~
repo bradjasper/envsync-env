@@ -1,0 +1,69 @@
+" Python mappings
+autocmd FileType python imap <F5> <Esc>:w<CR>:!python "%"<CR>
+autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
+autocmd FileType python imap <F6> <C-O>:w<CR>:!python -i "%"<CR>
+autocmd FileType python map <F6> :w<CR>:!python -i "%"<CR>
+
+" FuzzyFinder mappings
+nnoremap <C-p> :FuzzyFinderFile <C-r>=fnamemodify(getcwd(), ':p')<CR><CR> 
+nnoremap <C-y> :FuzzyFinderFavFile<CR>
+nnoremap <C-k> :FuzzyFinderTaggedFile<CR>
+nnoremap <C-l> :FuzzyFinderTag<CR>
+
+" Quickly edit and source ~/.vimrc (/erc and /src)
+map <LocalLeader>erc :edit ~/.vimrc<cr>
+map <LocalLeader>src :source ~/.vimrc<cr>
+
+"set tags+=/Users/bradjasper/Sites/$ACTIVE_PROJECT/.vimtags
+"set tags+=/Users/bradjasper/Sites/common/.vimtags
+
+set expandtab
+set sw=4
+set tabstop=4
+set sts=4
+set autoindent
+set nowrap
+set history=1000
+set noerrorbells
+set ttyfast
+set backup
+set backupext=~
+set backupdir=~/.vim/backup/
+set dir=~/.vim/.tmp/
+set smarttab
+set showmatch
+set backupskip=/tmp/*,/private/tmp/*" 
+set number
+set hlsearch
+set nocompatible
+set antialias
+set transparency=3
+
+syntax on
+colorscheme af
+
+filetype on
+filetype plugin on
+filetype indent on
+
+" Clojure stuff
+let clj_highlight_builtins = 1
+let clj_param_rainbow = 1
+
+" Abbreviations
+abbr dbr border: 1px solid red; 
+abbr dbb border: 1px solid blue;
+abbr dbg border: 1px solid green;
+abbr dby border: 1px solid yellow;
+abbr dbbl border: 1px solid black;
+abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tortor eros, molestie pulvinar, commodo porttitor, facilisis in, erat. Suspendisse suscipit tortor laoreet purus ornare egestas. Cras turpis mi, volutpat in, vehicula ut, mattis quis, urna. Curabitur in leo. Ut vel lorem. Aenean sodales est quis quam. Maecenas cursus. Fusce quam diam, tempus elementum, feugiat non, feugiat nec, massa. In nulla arcu, mattis nec, varius id, tristique nec, augue. Donec ac sem id enim mollis posuere. Cras ac libero ut pede eleifend vulputate. Suspendisse tempor faucibus dolor. Vestibulum eros. Mauris vestibulum porttitor urna. 
+abbr con console.log('')
+abbr ass assert False,
+
+" MacVim
+if has("gui_running")
+    set go-=T
+    set guifont=Inconsolata:h14 
+    set lines=65
+    set columns=83
+endif
