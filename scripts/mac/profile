@@ -4,9 +4,9 @@ export PROJECTS_DIR="$HOME/Sites"
 export PYTHON_DIR="/usr/local/lib/python2.6/site-packages/"
 
 # Setup path
-unshift_path "/opt/local/bin"
-unshift_path "/opt/local/sbin"
-unshift_path "/usr/local/lib/erlang/lib/rabbitmq_server-1.5.5/sbin"
+push_path "/opt/local/bin"
+push_path "/opt/local/sbin"
+push_path "/usr/local/lib/erlang/lib/rabbitmq_server-1.5.5/sbin"
 
 # Setup python path
 unshift_pythonpath "$HOME/Sites/"
