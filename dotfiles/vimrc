@@ -1,3 +1,5 @@
+set nocompatible
+
 " Python mappings
 autocmd FileType python imap <F5> <Esc>:w<CR>:!python "%"<CR>
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
@@ -17,12 +19,19 @@ map <LocalLeader>src :source ~/.vimrc<cr>
 "set tags+=/Users/bradjasper/Sites/$ACTIVE_PROJECT/.vimtags
 "set tags+=/Users/bradjasper/Sites/common/.vimtags
 
+set backspace=indent,eol,start
+set incsearch
+set hlsearch
+
+" indent settings
 set expandtab
 set sw=4
 set tabstop=4
 set sts=4
 set autoindent
+
 set nowrap
+set linebreak
 set history=1000
 set noerrorbells
 set ttyfast
@@ -34,9 +43,21 @@ set smarttab
 set showmatch
 set backupskip=/tmp/*,/private/tmp/*" 
 set number
-set hlsearch
-set nocompatible
 set antialias
+
+set wildmode=list:longest
+set wildmenu  
+
+set list
+set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+
+set t_Co=256
+set hidden
+
+"make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+
 
 syntax on
 colorscheme af
@@ -50,6 +71,7 @@ let clj_highlight_builtins = 1
 let clj_param_rainbow = 1
 
 " Abbreviations
+" TODO Move to snippets
 abbr dbr border: 1px solid red; 
 abbr dbb border: 1px solid blue;
 abbr dbg border: 1px solid green;
@@ -59,6 +81,20 @@ abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tort
 abbr con console.log('')
 abbr ass assert False,
 
+
+"jump to last cursor position when opening a file
+"dont do it when writing a commit log entry
+autocmd BufReadPost * call SetCursorPosition()
+function! SetCursorPosition()
+    if &filetype !~ 'commit\c'
+        if line("'\"") > 0 && line("'\"") <= line("$")
+            exe "normal! g`\""
+            normal! zz
+        endif
+    end
+endfunction
+
+
 " MacVim
 if has("gui_running")
     set go-=T
@@ -66,4 +102,6 @@ if has("gui_running")
     set lines=65
     set columns=83
     set transparency=3
+    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
 endif
+
