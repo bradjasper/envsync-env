@@ -1,3 +1,9 @@
+" Vimrc
+"
+" This has been built up over the years from my own and many other vimrc's
+" I've come across.
+"
+
 set nocompatible
 
 "Set Mapleader
@@ -9,6 +15,10 @@ autocmd FileType python imap <F5> <Esc>:w<CR>:!python "%"<CR>
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 autocmd FileType python imap <F6> <C-O>:w<CR>:!python -i "%"<CR>
 autocmd FileType python map <F6> :w<CR>:!python -i "%"<CR>
+
+" Enable Django snipMates
+autocmd FileType python set ft=python.django
+autocmd FileType html set ft=html.django_template
 
 " FuzzyFinder mappings
 nnoremap <C-p> :FuzzyFinderFile <C-r>=fnamemodify(getcwd(), ':p')<CR><CR> 
@@ -105,7 +115,12 @@ if has("gui_running")
     set lines=65
     set columns=83
     set transparency=3
-    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+"    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+    set statusline+=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l/%L]
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
 
     " Remove the scrollbar
     set guioptions=e
