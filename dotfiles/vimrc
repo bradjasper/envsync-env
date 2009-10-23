@@ -1,5 +1,9 @@
 set nocompatible
 
+"Set Mapleader
+let mapleader = ","
+let g:mapleader = ","
+
 " Python mappings
 autocmd FileType python imap <F5> <Esc>:w<CR>:!python "%"<CR>
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
@@ -51,7 +55,6 @@ set wildmenu
 set list
 set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
-set t_Co=256
 set hidden
 
 "make <c-l> clear the highlight as well as redraw
@@ -103,5 +106,41 @@ if has("gui_running")
     set columns=83
     set transparency=3
     set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+
+    " Remove the scrollbar
+    set guioptions=e
+
+    " Always show the top tab bar
+    set showtabline=2
 endif
+
+" Nerdtree settings
+let g:NERDTreeQuitOnOpen = 1
+nmap <silent> <leader>, <Esc>:NERDTreeToggle<CR>
+
+
+" Map Command+n keys to tabs (in command mode)
+map <D-1> :tabn 1<CR>
+map <D-2> :tabn 2<CR>
+map <D-3> :tabn 3<CR>
+map <D-4> :tabn 4<CR>
+map <D-5> :tabn 5<CR>
+map <D-6> :tabn 6<CR>
+map <D-7> :tabn 7<CR>
+map <D-8> :tabn 8<CR>
+map <D-9> :tabn 9<CR>
+
+" Map Command+n keys to tabs (in insert mode)
+map! <D-1> <C-O>:tabn 1<CR>
+map! <D-2> <C-O>:tabn 2<CR>
+map! <D-3> <C-O>:tabn 3<CR>
+map! <D-4> <C-O>:tabn 4<CR>
+map! <D-5> <C-O>:tabn 5<CR>
+map! <D-6> <C-O>:tabn 6<CR>
+map! <D-7> <C-O>:tabn 7<CR>
+map! <D-8> <C-O>:tabn 8<CR>
+map! <D-9> <C-O>:tabn 9<CR>
+
+"Fast saving
+nmap <leader>w :w!<cr>
 
