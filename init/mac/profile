@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export PROJECTS_DIR="$HOME/Sites"
+export PROJECTS_DIR="$HOME/Projects"
+export PROJ_DIR="$HOME/Projects"
 export PYTHON_DIR="/usr/local/lib/python2.6/site-packages/"
 
 # Setup path
@@ -9,8 +10,8 @@ push_path "/opt/local/sbin"
 push_path "/usr/local/lib/erlang/lib/rabbitmq_server-1.5.5/sbin"
 
 # Setup python path
-unshift_pythonpath "$HOME/Sites/"
-unshift_pythonpath "$HOME/Sites/common/"
+unshift_pythonpath $PROJ_DIR
+unshift_pythonpath $PROJ_DIR/common
 unshift_pythonpath $PYTHON_DIR
 
 # Setup erlang

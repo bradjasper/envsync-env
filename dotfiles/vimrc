@@ -17,27 +17,34 @@ autocmd FileType python imap <F6> <C-O>:w<CR>:!python -i "%"<CR>
 autocmd FileType python map <F6> :w<CR>:!python -i "%"<CR>
 
 " Enable Django snipMates
-autocmd FileType python set ft=python.django
+"autocmd FileType python set ft=python.django # breaks treelist
 autocmd FileType html set ft=html.django_template
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
 
 " FuzzyFinder mappings
-nnoremap <C-p> :FuzzyFinderFile <C-r>=fnamemodify(getcwd(), ':p')<CR><CR> 
-nnoremap <C-y> :FuzzyFinderFavFile<CR>
 nnoremap <C-k> :FuzzyFinderTaggedFile<CR>
-nnoremap <C-l> :FuzzyFinderTag<CR>
+nnoremap <C-s> :FuzzyFinderTag<CR>
 
 " Quickly edit and source ~/.vimrc (/erc and /src)
 map <LocalLeader>erc :edit ~/.vimrc<cr>
 map <LocalLeader>src :source ~/.vimrc<cr>
 
-"set tags+=/Users/bradjasper/Sites/$ACTIVE_PROJECT/.vimtags
-"set tags+=/Users/bradjasper/Sites/common/.vimtags
+set tags+=$PROJ_DIR/.tags/$ACTIVE_PROJECT
 
 set backspace=indent,eol,start
+
+" Search while typing
 set incsearch
+
+" Highlight searches
 set hlsearch
 
-" indent settings
+"make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+
+" Indent settings
 set expandtab
 set sw=4
 set tabstop=4
@@ -66,10 +73,6 @@ set list
 set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
 set hidden
-
-"make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
 
 
 syntax on
@@ -121,7 +124,6 @@ if has("gui_running")
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
 
-
     " Remove the scrollbar
     set guioptions=e
 
@@ -159,3 +161,39 @@ map! <D-9> <C-O>:tabn 9<CR>
 "Fast saving
 nmap <leader>w :w!<cr>
 
+"Fast reloading of the .vimrc
+map <leader>s :source ~/.vimrc<cr>
+"Fast editing of .vimrc
+map <leader>e :e! ~/.vimrc<cr>
+"When .vimrc is edited, reload it
+autocmd! bufwritepost vimrc source ~/.vimrc
+
+"
+" Taglist
+"
+highlight MyTagListTagName gui=bold guifg=Black guibg=Orange
+" TagListTagScope - Used for tag scope
+highlight MyTagListTagScope gui=NONE guifg=Blue
+" TagListTitle - Used for tag titles
+highlight MyTagListTitle gui=bold guifg=DarkRed guibg=LightGray
+" TagListComment - Used for comments
+highlight MyTagListComment guifg=DarkGreen
+" TagListFileName - Used for filenames
+highlight MyTagListFileName gui=bold guifg=Black guibg=LightBlue
+"let Tlist_Ctags_Cmd = $VIM.'/vimfiles/ctags.exe' " location of ctags tool
+let Tlist_Show_One_File = 1 " Displaying tags for only one file~
+let Tlist_Close_On_Select = 1 " Close the taglist window when a file or tag is selected.
+let Tlist_Sort_Type = "order" " sort by order or name
+let Tlist_Compart_Format = 1 " Remove extra information and blank lines from the taglist window.
+let Tlist_Display_Tag_Scope = 1 " Show tag scope next to the tag name.
+let Tlist_Ctags_Cmd="/opt/local/bin/ctags"
+let Tlist_GainFocus_On_ToggleOpen=1
+map <leader>, :TlistToggle<cr>
+map T :TaskList<CR>
+
+
+" Minibufexplorer
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
