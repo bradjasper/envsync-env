@@ -1,0 +1,63 @@
+# #!/bin/bash
+# need snippet for 'usage'
+snippet date
+	`system("date +%m-%d-%Y")`
+# header for shell script
+snippet sh
+	#!/bin/bash
+	# Criado em: `system("date +%m-%d-%Y")`
+	# Last Change: `system("date +%m-%d-%Y")`
+	# vim:ft=sh:fdm=syntax:nu:
+	# Instituicao: ${1:instituicao}
+	# Proposito do script: ${2:descricao}
+	# Autor: ${3:`system("whoami")`}
+	# site: ${4:site}
+snippet #!
+	#!/bin/bash
+# test if has dir
+snippet ifdir
+	[ -d ${1:namedir} ] || mkdir $1 ; cd $1 
+snippet ifile
+	if [ ! -e ${1:filename}  ]; then
+		echo "  file $1 not present"
+	fi
+snippet if
+	if [[ ${1:condition} ]]; then
+		${2:#statements}
+	fi
+snippet elif
+	elif [[ ${1:condition} ]]; then
+		${2:#statements}
+snippet for
+	for (( ${2:i} = 0; $2 < ${1:count}; $2++ )); do
+		${3:#statements}
+	done
+snippet wh
+	while [[ ${1:condition} ]]; do
+		${2:#statements}
+	done
+snippet until
+	[[ ${1:condition} ]]; do
+		${2:#statements}
+	done
+snippet case
+	case ${1:word} in
+		${2:pattern})
+		${3};;
+	esac
+# ifroot - if root
+snippet ir
+	# testa se está logado como root
+	if [ "$(id -u)" != "0" ]; then
+		echo "  Need be root"
+		sleep 2
+		exit  1
+	fi
+snippet lock
+	LOCK_FILE=/tmp/.lock
+	(set -C; :  > $LOCK_FILE) 2> /dev/null
+	if [  $? != "0" ];  then
+	  echo "Lock File exists - exiting"
+	   sleep 1
+	   exit 1
+	fi

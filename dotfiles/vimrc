@@ -1,28 +1,58 @@
+" Vimrc
+"
+" This has been built up over the years from my own and many other vimrc's
+" I've come across.
+"
+
+set nocompatible
+
+"Set Mapleader
+let mapleader = ","
+let g:mapleader = ","
+
 " Python mappings
 autocmd FileType python imap <F5> <Esc>:w<CR>:!python "%"<CR>
 autocmd FileType python map <F5> :w<CR>:!python "%"<CR>
 autocmd FileType python imap <F6> <C-O>:w<CR>:!python -i "%"<CR>
 autocmd FileType python map <F6> :w<CR>:!python -i "%"<CR>
 
+" Enable Django snipMates
+"autocmd FileType python set ft=python.django # breaks treelist
+autocmd FileType html set ft=html.django_template
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+
+
 " FuzzyFinder mappings
-nnoremap <C-p> :FuzzyFinderFile <C-r>=fnamemodify(getcwd(), ':p')<CR><CR> 
-nnoremap <C-y> :FuzzyFinderFavFile<CR>
 nnoremap <C-k> :FuzzyFinderTaggedFile<CR>
-nnoremap <C-l> :FuzzyFinderTag<CR>
+nnoremap <C-s> :FuzzyFinderTag<CR>
 
 " Quickly edit and source ~/.vimrc (/erc and /src)
 map <LocalLeader>erc :edit ~/.vimrc<cr>
 map <LocalLeader>src :source ~/.vimrc<cr>
 
-"set tags+=/Users/bradjasper/Sites/$ACTIVE_PROJECT/.vimtags
-"set tags+=/Users/bradjasper/Sites/common/.vimtags
+set tags+=$PROJ_DIR/.tags/$ACTIVE_PROJECT
 
+set backspace=indent,eol,start
+
+" Search while typing
+set incsearch
+
+" Highlight searches
+set hlsearch
+
+"make <c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
+
+" Indent settings
 set expandtab
 set sw=4
 set tabstop=4
 set sts=4
 set autoindent
+
 set nowrap
+set linebreak
 set history=1000
 set noerrorbells
 set ttyfast
@@ -34,9 +64,16 @@ set smarttab
 set showmatch
 set backupskip=/tmp/*,/private/tmp/*" 
 set number
-set hlsearch
-set nocompatible
 set antialias
+
+set wildmode=list:longest
+set wildmenu  
+
+set list
+"set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+
+set hidden
+
 
 syntax on
 colorscheme af
@@ -50,6 +87,7 @@ let clj_highlight_builtins = 1
 let clj_param_rainbow = 1
 
 " Abbreviations
+" TODO Move to snippets
 abbr dbr border: 1px solid red; 
 abbr dbb border: 1px solid blue;
 abbr dbg border: 1px solid green;
@@ -59,6 +97,20 @@ abbr lorem Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer tort
 abbr con console.log('')
 abbr ass assert False,
 
+
+"jump to last cursor position when opening a file
+"dont do it when writing a commit log entry
+autocmd BufReadPost * call SetCursorPosition()
+function! SetCursorPosition()
+    if &filetype !~ 'commit\c'
+        if line("'\"") > 0 && line("'\"") <= line("$")
+            exe "normal! g`\""
+            normal! zz
+        endif
+    end
+endfunction
+
+
 " MacVim
 if has("gui_running")
     set go-=T
@@ -66,4 +118,82 @@ if has("gui_running")
     set lines=65
     set columns=83
     set transparency=3
+"    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
+    set statusline+=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l/%L]
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+
+    " Remove the scrollbar
+    set guioptions=e
+
+    " Always show the top tab bar
+    set showtabline=2
 endif
+
+" Nerdtree settings
+let g:NERDTreeQuitOnOpen = 1
+nmap <silent> <leader>, <Esc>:NERDTreeToggle<CR>
+
+
+" Map Command+n keys to tabs (in command mode)
+map <D-1> :tabn 1<CR>
+map <D-2> :tabn 2<CR>
+map <D-3> :tabn 3<CR>
+map <D-4> :tabn 4<CR>
+map <D-5> :tabn 5<CR>
+map <D-6> :tabn 6<CR>
+map <D-7> :tabn 7<CR>
+map <D-8> :tabn 8<CR>
+map <D-9> :tabn 9<CR>
+
+" Map Command+n keys to tabs (in insert mode)
+map! <D-1> <C-O>:tabn 1<CR>
+map! <D-2> <C-O>:tabn 2<CR>
+map! <D-3> <C-O>:tabn 3<CR>
+map! <D-4> <C-O>:tabn 4<CR>
+map! <D-5> <C-O>:tabn 5<CR>
+map! <D-6> <C-O>:tabn 6<CR>
+map! <D-7> <C-O>:tabn 7<CR>
+map! <D-8> <C-O>:tabn 8<CR>
+map! <D-9> <C-O>:tabn 9<CR>
+
+"Fast saving
+nmap <leader>w :w!<cr>
+
+"Fast reloading of the .vimrc
+map <leader>s :source ~/.vimrc<cr>
+"Fast editing of .vimrc
+map <leader>e :e! ~/.vimrc<cr>
+"When .vimrc is edited, reload it
+autocmd! bufwritepost vimrc source ~/.vimrc
+
+"
+" Taglist
+"
+highlight MyTagListTagName gui=bold guifg=Black guibg=Orange
+" TagListTagScope - Used for tag scope
+highlight MyTagListTagScope gui=NONE guifg=Blue
+" TagListTitle - Used for tag titles
+highlight MyTagListTitle gui=bold guifg=DarkRed guibg=LightGray
+" TagListComment - Used for comments
+highlight MyTagListComment guifg=DarkGreen
+" TagListFileName - Used for filenames
+highlight MyTagListFileName gui=bold guifg=Black guibg=LightBlue
+"let Tlist_Ctags_Cmd = $VIM.'/vimfiles/ctags.exe' " location of ctags tool
+let Tlist_Show_One_File = 1 " Displaying tags for only one file~
+let Tlist_Close_On_Select = 1 " Close the taglist window when a file or tag is selected.
+let Tlist_Sort_Type = "order" " sort by order or name
+let Tlist_Compart_Format = 1 " Remove extra information and blank lines from the taglist window.
+let Tlist_Display_Tag_Scope = 1 " Show tag scope next to the tag name.
+let Tlist_Ctags_Cmd="/opt/local/bin/ctags"
+let Tlist_GainFocus_On_ToggleOpen=1
+map <leader>, :TlistToggle<cr>
+map T :TaskList<CR>
+
+
+" Minibufexplorer
+let g:miniBufExplMapWindowNavVim = 1
+let g:miniBufExplMapWindowNavArrows = 1
+let g:miniBufExplMapCTabSwitchBufs = 1
+let g:miniBufExplModSelTarget = 1
