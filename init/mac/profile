@@ -30,6 +30,9 @@ alias rsf='$PROJECTS_DIR/restart_fastcgi.sh $ACTIVE_PROJECT'
 alias rsc='/Users/bradjasper/Sites/$ACTIVE_PROJECT/celeryd restart'
 alias rsm='killall memcached;memcached&'
 alias rsa='rsl && rsf && rsm'
+alias redis-repl="/Users/bradjasper/src/repl/bin/repl /Users/bradjasper/src/redis/redis-cli"
+alias rrepl='redis-repl'
+
 
 # Setup Django Path
 DJANGO_FILE=`python -c "import django; print django.__file__"`
