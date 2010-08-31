@@ -2,3 +2,4 @@ dotfiles/vim/backup/*~
 dotfiles/vim/backup/.*~
 dotfiles/vim/.tmp/*.swp
 dotfiles/vim/.tmp/.*.swp
+dotfiles/vim/.tmp/*
