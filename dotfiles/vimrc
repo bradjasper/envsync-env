@@ -70,7 +70,7 @@ set wildmode=list:longest
 set wildmenu  
 
 set list
-"set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
+set listchars=tab:▷⋅,trail:⋅,nbsp:⋅
 
 set hidden
 
