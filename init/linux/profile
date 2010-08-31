@@ -6,6 +6,12 @@ export PYTHON_DIR="/usr/lib/python2.6/site-packages/"
 unshift_path "/usr/lib/erlang/lib/rabbitmq-server-1.5.5/scripts"
 unshift_path "$HOME/Code/firefox"
 
+unshift_pythonpath "$HOME"
+unshift_pythonpath "/usr/local/lib/python2.6/site-packages"
+unshift_pythonpath "/home/bjasper/common"
+unshift_pythonpath "/home/bjasper"
+
+
 alias rsl='sudo /etc/init.d/lighttpd restart'
 alias ls='ls --color'
 alias l='ls -la --color'

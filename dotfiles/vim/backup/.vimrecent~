@@ -1,0 +1,4 @@
+/etc/monit/monitrc
+/etc/lighttpd/conf-enabled/vhosts.conf
+/home/bjasper/rentacarnow/settings.py
+/home/bjasper/rentacarnow/fastcgi

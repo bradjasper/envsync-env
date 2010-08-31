@@ -1,0 +1,14 @@
+*.pyc
+*.log
+.DS_Store
+.svn
+*.pid
+*.sock
+.vimtags
+data/sql/old/*
+logs*
+implementation/OTA*
+static/monitoring*
+static/images/cache*
+src
+env

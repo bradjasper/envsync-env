@@ -3,6 +3,10 @@
 # Setup bash prompt
 export PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 "(%s)")$> '
 
+export MANPAGER="col -b | view -c 'set ft=man nomod nolist' -" 
+export EDITOR=vim
+export VISUAL="$EDITOR"
+
 # Helpful git stuff
 alias grm='git rm -rf'
 alias gmv='git mv'
@@ -47,6 +51,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias .....='cd ../../../../'
+alias dsize='du -hc --max-depth=1'
 alias untar='tar -xzvf'
 alias ep='v $ENVSYNC_DIR/init/profile'
 alias sp='source $ENVSYNC_DIR/init/profile'
@@ -89,13 +94,9 @@ alias marcn='p rentacarnow'
 
 big_files() { find . -type f -size +50000k -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'; }
 
+
 psgrep() { ps aux | grep "$@"; }
 alias psg='psgrep'
 alias pgrep='psgrep'
 
-export MANPAGER="col -b | view -c 'set ft=man nomod nolist' -" 
-export EDITOR=vim
-export VISUAL="$EDITOR"
 
-export MIXPANEL_API_KEY=c1bf9105ff4ef6429aa355451cbd07b5
-export MIXPANEL_API_SECRET=260bc592536df8b5442485ecb8a39cfa
