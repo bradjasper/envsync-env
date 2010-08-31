@@ -3,12 +3,17 @@
 export PROJECTS_DIR=$HOME
 export PYTHON_DIR="/usr/lib/python2.6/site-packages/"
 
-unshift_path "/usr/lib/erlang/lib/rabbitmq-server-1.5.5/scripts"
-unshift_path "$HOME/Code/firefox"
+#unshift_path "/usr/lib/erlang/lib/rabbitmq-server-1.5.5/scripts"
+#unshift_path "$HOME/Code/firefox"
+unshift_path "/usr/sbin"
 
 alias rsl='sudo /etc/init.d/lighttpd restart'
 alias ls='ls --color'
 alias l='ls -la --color'
+alias rinstall='sudo rpm -Uvh'
+alias marcn="make_active 'rentacarnow' && source ~/rentacarnow/env/bin/activate"
+alias auth='exec ssh-agent $SHELL; ssh-add'
 
 # Setup bash prompt
 export PS1='\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__git_ps1 "(%s)")$> '
+
