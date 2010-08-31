@@ -50,3 +50,4 @@ export DJANGO_DIR=`dirname $DJANGO_FILE`
 #push_path ~/.gem/ruby/1.8/bin
 
 alias vmstat='vm_stat'
+alias flushhosts="sudo dscacheutil -flushcache"
