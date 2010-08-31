@@ -21,3 +21,5 @@ echo "  Welcome $USERNAME to $WELCOME_MSG @$MACHTYPE"
 echo "==========================================================="
 echo
 random_quote
+echo
+echo
