@@ -1,0 +1,66 @@
+#!/usr/bin/env python
+
+"""
+    Script is a tool that watches a file for you and outputs it into
+    an markdowned rendered version when changed.
+"""
+import sys
+import os
+import time
+
+import markdown
+
+def get_file_modified(input):
+    return os.stat(input).st_mtime
+
+def scribe(input, output):
+
+
+    assert os.path.isfile(input), "Unknown file '%s'" % input
+
+    old_timestamp = None
+    while True:
+        new_timestamp = get_file_modified(input)
+
+        if new_timestamp != old_timestamp:
+            print "Input file '%s' changed. Writing to '%s'" % (input, output)
+            old_timestamp = new_timestamp
+            markdown_file(input, output)
+
+        time.sleep(0.1)
+            
+
+    print "Watching %s" % input
+
+
+def markdown_file(input, output):
+
+    with open(output, "w") as outputfile:
+        with open(input) as inputfile:
+            html = """
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+    <head>
+        <link rel="stylesheet" href="http://bradjasper.com/media/css/style.css" />
+        <link rel="stylesheet" href="http://bradjasper.com/media/css/shjs/sh_bright.css" />
+    </head>
+    <body>
+        <div id="outer">
+            <div id="inner">
+            <div class="entry">%s</div>
+            </div>
+        </div>
+    </body>
+</html>""" % markdown.markdown(inputfile.read())
+
+            outputfile.write(html)
+        
+    
+
+
+
+if __name__ == "__main__":
+
+    assert len(sys.argv) == 3, "Please enter an input and an output file"
+
+    scribe(sys.argv[1], sys.argv[2])
+

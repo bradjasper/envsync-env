@@ -115,8 +115,8 @@ endfunction
 if has("gui_running")
     set go-=T
     set guifont=Inconsolata:h14 
-    set lines=65
-    set columns=83
+    set lines=80
+    set columns=85
     set transparency=3
 "    set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
     set statusline+=%F%m%r%h%w\ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [POS=%l/%L]
@@ -197,3 +197,6 @@ let g:miniBufExplMapWindowNavVim = 1
 let g:miniBufExplMapWindowNavArrows = 1
 let g:miniBufExplMapCTabSwitchBufs = 1
 let g:miniBufExplModSelTarget = 1
+
+" Write to files with sudo
+cmap w!! %!sudo tee > /dev/null %
