@@ -1,0 +1,30 @@
+[alias]
+    a = add
+    au = add -u
+    b = branch
+    br = branch
+    cia = commit -av
+    ci = commit -v
+    co = checkout
+    dc = diff --cached
+    d = diff
+    df = diff
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+    pt = add --patch
+    spull = !git-svn fetch && git-svn rebase --local
+    spush = !git-svn dcommit
+    s = status
+    sta = status
+    stat = status
+    st = status
+    ls = status
+    last = cat-file commit HEAD
+[user]
+	name = Brad Jasper
+	email = bjasper@gmail.com
+[color]
+    ui = auto
+    diff = auto
+    status = auto
+    interactive = auto
+

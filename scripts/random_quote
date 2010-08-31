@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+
+import random
+import os
+
+scripts_dir = os.getenv("ENVSYNC_SCRIPTS_DIR")
+quotes = os.path.join(scripts_dir, "data/quotes.txt")
+
+if scripts_dir:
+    with open(quotes) as file:
+        data = file.read()
+        quotes = data.split("\n.\n")
+        print random.choice(quotes)

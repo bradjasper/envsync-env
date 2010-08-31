@@ -1,0 +1,18 @@
+# Extract an archive (zip/tar/tar.gz)
+
+if [[ ! -f "$1" ]]; then
+    echo "Archive '$1' doesn't exist"
+    exit 1
+fi
+
+case $1 in 
+  *.tar.gz) 
+        tar -xzvf $1;;
+  *.tar)
+        tar -xvf $1;;
+  *.zip)
+        unzip $1;;
+  *)
+     echo "Unknown file extension (tar.gz/tar/zip accepted)";;
+esac
+

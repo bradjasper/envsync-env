@@ -1,16 +1,21 @@
 #!/bin/bash
 
-export PROJECTS_DIR="$HOME/Sites"
+export PROJECTS_DIR="$HOME/Projects"
+export PROJ_DIR="$HOME/Projects"
 export PYTHON_DIR="/usr/local/lib/python2.6/site-packages/"
 
 # Setup path
-push_path "/opt/local/bin"
-push_path "/opt/local/sbin"
-push_path "/usr/local/lib/erlang/lib/rabbitmq_server-1.5.5/sbin"
+#push_path "/opt/local/bin"
+#push_path "/opt/local/sbin"
+push_path ~/bin
+push_path /usr/local/mysql/bin
+push_path /usr/local
+push_path /usr/local/sbin
+#push_path "/usr/local/lib/erlang/lib/rabbitmq_server-1.5.5/sbin"
 
 # Setup python path
-unshift_pythonpath "$HOME/Sites/"
-unshift_pythonpath "$HOME/Sites/common/"
+unshift_pythonpath $PROJ_DIR
+unshift_pythonpath $PROJ_DIR/common
 unshift_pythonpath $PYTHON_DIR
 
 # Setup erlang
@@ -29,7 +34,19 @@ alias rsf='$PROJECTS_DIR/restart_fastcgi.sh $ACTIVE_PROJECT'
 alias rsc='/Users/bradjasper/Sites/$ACTIVE_PROJECT/celeryd restart'
 alias rsm='killall memcached;memcached&'
 alias rsa='rsl && rsf && rsm'
+alias redis-repl="/Users/bradjasper/src/repl/bin/repl /Users/bradjasper/src/redis/redis-cli"
+alias rrepl='redis-repl'
+
 
 # Setup Django Path
 DJANGO_FILE=`python -c "import django; print django.__file__"`
 export DJANGO_DIR=`dirname $DJANGO_FILE`
+
+# Setup ImageMagick
+#export MAGICK_HOME=/Users/bradjasper/src/ImageMagick-6.5.8
+#LD_LIBRARY_PATH="${LD_LIBRARY_PATH:+$LD_LIBRARY_PATH:}$MAGICK_HOME/lib"
+#export LD_LIBRARY_PATH
+#push_path "$MAGICK_HOME/bin"
+#push_path ~/.gem/ruby/1.8/bin
+
+alias vmstat='vm_stat'

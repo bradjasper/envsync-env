@@ -1,0 +1,6 @@
+#!/bin/bash
+
+in_file=$1
+out_file=`echo $1| cut -d'.' -f1`.wav
+
+ffmpeg -i $in_file -vn -acodec pcm_s16le $out_file
